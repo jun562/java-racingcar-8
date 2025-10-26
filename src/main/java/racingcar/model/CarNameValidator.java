@@ -12,8 +12,8 @@ import java.util.Set;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class Validator {
-    public Validator() {
+public class CarNameValidator {
+    public CarNameValidator() {
 
     }
 
@@ -22,20 +22,20 @@ public class Validator {
     private static final String CAR_NAME_REGEX = "^[a-zA-Z0-9_가-힣]+$";
 
     public void validate(List<String> carNames) {
-        validateCarCount(carNames);
-        validateDuplicatedCarNames(carNames);
-        validateEmptyCarNames(carNames);
-        validateCarNameLength(carNames);
-        validateCarNameFormat(carNames);
+        validateCount(carNames);
+        validateDuplicated(carNames);
+        validateEmpty(carNames);
+        validateLength(carNames);
+        validateFormat(carNames);
     }
 
-    private void validateCarCount(List<String> carNames) {
+    private void validateCount(List<String> carNames) {
         if (carNames.size() < MIN_CAR_COUNT) {
             throw new IllegalArgumentException(ERROR_INVALID_CAR_COUNT);
         }
     }
 
-    private void validateDuplicatedCarNames(List<String> carNames) {
+    private void validateDuplicated(List<String> carNames) {
         Set<String> carNamesSet = new HashSet<>(carNames);
 
         if (carNamesSet.size() != carNames.size()) {
@@ -43,13 +43,13 @@ public class Validator {
         }
     }
 
-    private void validateEmptyCarNames(List<String> carNames) {
+    private void validateEmpty(List<String> carNames) {
         if (carNames.contains("")) {
             throw new IllegalArgumentException(ERROR_CAR_NAME_WITH_EMPTY);
         }
     }
 
-    private void validateCarNameLength(List<String> carNames) {
+    private void validateLength(List<String> carNames) {
         Stream<String> carNamesStream = carNames.stream();
         IntStream carNamesLengthStream = carNamesStream.mapToInt(String::length);
 
@@ -58,7 +58,7 @@ public class Validator {
         }
     }
 
-    private void validateCarNameFormat(List<String> carNames) {
+    private void validateFormat(List<String> carNames) {
         Stream<String> carNamesStream = carNames.stream();
 
         if (carNamesStream.anyMatch(carName -> !carName.matches(CAR_NAME_REGEX))) {

@@ -14,62 +14,62 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class ValidatorTest {
-    private Validator validator;
+class CarNameValidatorTest {
+    private CarNameValidator carNameValidator;
 
     @BeforeEach
     void setValidator() {
-        validator = new Validator();
+        carNameValidator = new CarNameValidator();
     }
 
     //    성공 케이스
     @Test
     @DisplayName("입력된_자동차가_2대인 경우")
-    void validateCarNumbersWhenTwo() {
+    void validateCarCountWhenTwo() {
         List<String> carNames = List.of("car", "wooni");
 
         assertDoesNotThrow(() -> {
-            validator.validate(carNames);
+            carNameValidator.validate(carNames);
         });
     }
 
     @Test
     @DisplayName("입력된_자동차가_3대인_경우")
-    void validateCarNumbersWhenThree() {
+    void validateCarCountWhenThree() {
         List<String> carNames = List.of("car", "wooni", "pobi");
 
         assertDoesNotThrow(() -> {
-            validator.validate(carNames);
+            carNameValidator.validate(carNames);
         });
     }
 
     @Test
     @DisplayName("자동차의_이름이_모두_다른_경우")
-    void validateCarNamesWhenUnique() {
+    void validateNamesWhenUnique() {
         List<String> carNames = List.of("pobi", "car", "wooni");
 
         assertDoesNotThrow(() -> {
-            validator.validate(carNames);
+            carNameValidator.validate(carNames);
         });
     }
 
     @Test
     @DisplayName("자동차의_이름이_5글자_이하인_경우")
-    void validateCarNameLengthWhenLessThanFive() {
+    void validateNameLengthWhenLessThanFive() {
         List<String> carNames = List.of("c", "ca", "car", "car1", "car12");
 
         assertDoesNotThrow(() -> {
-            validator.validate(carNames);
+            carNameValidator.validate(carNames);
         });
     }
 
     @Test
     @DisplayName("영문자_한글_숫자_밑줄_조합인_자동차인_경우")
-    void validateCarNameWithWordCharacter() {
+    void validateNameWithWordCharacter() {
         List<String> carNames = List.of("car", "c1234", "우아한카", "car_1", "포bi", "좋은_차");
 
         assertDoesNotThrow(() -> {
-            validator.validate(carNames);
+            carNameValidator.validate(carNames);
         });
     }
 
@@ -80,7 +80,7 @@ class ValidatorTest {
         List<String> carNames = List.of("car");
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            validator.validate(carNames);
+            carNameValidator.validate(carNames);
         });
 
         assertEquals(ERROR_INVALID_CAR_COUNT, exception.getMessage());
@@ -92,7 +92,7 @@ class ValidatorTest {
         List<String> carNames = List.of("");
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            validator.validate(carNames);
+            carNameValidator.validate(carNames);
         });
 
         assertEquals(ERROR_INVALID_CAR_COUNT, exception.getMessage());
@@ -100,12 +100,12 @@ class ValidatorTest {
 
     @Test
     @DisplayName("중복된_이름의_자동차가_존재하는_경우")
-    void validateCarNamesWhenDuplicated() {
+    void validateNamesWhenDuplicated() {
         List<String> carNames = List.of("pobi", "pobi", "wooni");
         String errorMessage = "경주할 자동차의 이름은 중복되지 않아야 합니다.";
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            validator.validate(carNames);
+            carNameValidator.validate(carNames);
         });
 
         assertEquals(ERROR_CAR_NAME_DUPLICATED, exception.getMessage());
@@ -114,11 +114,11 @@ class ValidatorTest {
 
     @Test
     @DisplayName("자동차의_이름이_빈_문자열인_경우")
-    void validateCarNamesWithEmpty() {
+    void validateNamesWithEmpty() {
         List<String> carNames = List.of("pobi", "", "wooni");
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            validator.validate(carNames);
+            carNameValidator.validate(carNames);
         });
 
         assertEquals(ERROR_CAR_NAME_WITH_EMPTY, exception.getMessage());
@@ -126,11 +126,11 @@ class ValidatorTest {
 
     @Test
     @DisplayName("자동차의_이름이_5글자_초과인_경우")
-    void validateCarNameLengthWhenExceedFive() {
+    void validateNameLengthWhenExceedFive() {
         List<String> carNames = List.of("car123", "car");
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            validator.validate(carNames);
+            carNameValidator.validate(carNames);
         });
 
         assertEquals(ERROR_CAR_NAME_LENGTH, exception.getMessage());
@@ -138,11 +138,11 @@ class ValidatorTest {
 
     @Test
     @DisplayName("자동차_이름에_공백이_포함된_경우")
-    void validateCarNameWithWhiteSpace() {
+    void validateNameWithWhiteSpace() {
         List<String> carNames = List.of("car 1", "car 2", "car 3");
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            validator.validate(carNames);
+            carNameValidator.validate(carNames);
         });
 
         assertEquals(ERROR_CAR_NAME_FORMAT, exception.getMessage());
@@ -151,11 +151,11 @@ class ValidatorTest {
     //    비단어 문자 : [^a-zA-Z0-9_가-힣]
     @Test
     @DisplayName("자동차_이름에_비단어_문자가_포함된_경우")
-    void validateCarNameWithNonWordCharacter() {
+    void validateNameWithNonWordCharacter() {
         List<String> carNames = List.of("c.a.r", "c+a*r", "c!a&r");
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            validator.validate(carNames);
+            carNameValidator.validate(carNames);
         });
 
         assertEquals(ERROR_CAR_NAME_FORMAT, exception.getMessage());
