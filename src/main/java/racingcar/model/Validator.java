@@ -12,6 +12,7 @@ public class Validator {
     private static final int MIN_CAR_COUNT = 2;
     private static final String ERROR_MESSAGE = "경주할 자동차는 2대 이상이어야 합니다.";
     private static final String ERROR_MESSAGE2 = "경주할 자동차의 이름은 중복되지 않아야 합니다.";
+    private static final String ERROR_MESSAGE3 = "자동차의 이름은 비어있지 않아야 합니다.";
 
     public void validate(List<String> carNames) {
         Set<String> carNamesSet = new HashSet<>(carNames);
@@ -20,6 +21,9 @@ public class Validator {
         }
         if (carNamesSet.size() != carNames.size()) {
             throw new IllegalArgumentException(ERROR_MESSAGE2);
+        }
+        if (carNames.contains("")) {
+            throw new IllegalArgumentException(ERROR_MESSAGE3);
         }
 
     }
