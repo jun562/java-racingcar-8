@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class InputTest extends NsTest {
     @Test
     @DisplayName("자동차_이름_입력_테스트")
-    void input_car_names() {
+    void inputCarNames() {
         assertSimpleTest(() -> {
             run("pobi,woni,jun");
             String result = Input.readCarNames();
@@ -21,7 +21,7 @@ class InputTest extends NsTest {
 
     @Test
     @DisplayName("시도할_횟수_입력_테스트")
-    void input_attempt_count() {
+    void inputAttemptCount() {
         assertSimpleTest(() -> {
             run("5");
             String result = Input.readAttemptCount();
