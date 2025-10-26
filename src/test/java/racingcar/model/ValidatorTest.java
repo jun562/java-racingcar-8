@@ -22,6 +22,7 @@ class ValidatorTest {
     @DisplayName("입력된_자동차가_2대인 경우")
     void validateCarNumbersWhenTwo() {
         List<String> carNames = List.of("car", "wooni");
+        
         assertDoesNotThrow(() -> {
             validator.validate(carNames);
         });
@@ -31,6 +32,7 @@ class ValidatorTest {
     @DisplayName("입력된_자동차가_3대인_경우")
     void validateCarNumbersWhenThree() {
         List<String> carNames = List.of("car", "wooni", "pobi");
+
         assertDoesNotThrow(() -> {
             validator.validate(carNames);
         });
@@ -63,5 +65,28 @@ class ValidatorTest {
         assertEquals(errorMessage, exception.getMessage());
     }
 
+    @Test
+    @DisplayName("자동차의_이름이_모두_다른_경우")
+    void validateCarNamesWhenUnique() {
+        List<String> carNames = List.of("pobi", "car", "wooni");
+
+        assertDoesNotThrow(() -> {
+            validator.validate(carNames);
+        });
+    }
+
+    @Test
+    @DisplayName("중복된_이름의_자동차가_존재하는_경우")
+    void validateCarNamesWhenDuplicated() {
+        List<String> carNames = List.of("pobi", "pobi", "wooni");
+        String errorMessage = "경주할 자동차의 이름은 중복되지 않아야 합니다.";
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            validator.validate(carNames);
+        });
+
+        assertEquals(errorMessage, exception.getMessage());
+
+    }
 
 }
