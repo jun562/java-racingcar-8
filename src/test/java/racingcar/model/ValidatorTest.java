@@ -124,4 +124,41 @@ class ValidatorTest {
 
         assertEquals(errorMessage, exception.getMessage());
     }
+
+    @Test
+    @DisplayName("영문자_한글_숫자_밑줄_조합인_자동차인_경우")
+    void validateCarNameWithWordCharacter() {
+        List<String> carNames = List.of("car", "c1234", "우아한카", "car_1", "포bi", "좋은_차");
+
+        assertDoesNotThrow(() -> {
+            validator.validate(carNames);
+        });
+    }
+
+    @Test
+    @DisplayName("자동차_이름에_공백이_포함된_경우")
+    void validateCarNameWithWhiteSpace() {
+        List<String> carNames = List.of("car 1", "car 2", "car 3");
+        String errorMessage = "자동차의 이름은 영문자, 한글, 숫자, 밑줄(_)의 조합이어야 합니다.";
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            validator.validate(carNames);
+        });
+
+        assertEquals(errorMessage, exception.getMessage());
+    }
+
+    //    비단어 문자 : [^a-zA-Z0-9_가-힣]
+    @Test
+    @DisplayName("자동차_이름에_비단어_문자가_포함된_경우")
+    void validateCarNameWithNonWordCharacter() {
+        List<String> carNames = List.of("c.a.r", "c+a*r", "c!a&r");
+        String errorMessage = "자동차의 이름은 영문자, 한글, 숫자, 밑줄(_)의 조합이어야 합니다.";
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            validator.validate(carNames);
+        });
+
+        assertEquals(errorMessage, exception.getMessage());
+    }
 }
