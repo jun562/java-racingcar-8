@@ -38,6 +38,36 @@ class ValidatorTest {
         });
     }
 
+    @Test
+    @DisplayName("자동차의_이름이_모두_다른_경우")
+    void validateCarNamesWhenUnique() {
+        List<String> carNames = List.of("pobi", "car", "wooni");
+
+        assertDoesNotThrow(() -> {
+            validator.validate(carNames);
+        });
+    }
+
+    @Test
+    @DisplayName("자동차의_이름이_5글자_이하인_경우")
+    void validateCarNameLengthWhenLessThanFive() {
+        List<String> carNames = List.of("c", "ca", "car", "car1", "car12");
+
+        assertDoesNotThrow(() -> {
+            validator.validate(carNames);
+        });
+    }
+
+    @Test
+    @DisplayName("영문자_한글_숫자_밑줄_조합인_자동차인_경우")
+    void validateCarNameWithWordCharacter() {
+        List<String> carNames = List.of("car", "c1234", "우아한카", "car_1", "포bi", "좋은_차");
+
+        assertDoesNotThrow(() -> {
+            validator.validate(carNames);
+        });
+    }
+
     //    예외 케이스
     @Test
     @DisplayName("입력된_자동차가_1대인_경우")
@@ -63,16 +93,6 @@ class ValidatorTest {
         });
 
         assertEquals(errorMessage, exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("자동차의_이름이_모두_다른_경우")
-    void validateCarNamesWhenUnique() {
-        List<String> carNames = List.of("pobi", "car", "wooni");
-
-        assertDoesNotThrow(() -> {
-            validator.validate(carNames);
-        });
     }
 
     @Test
@@ -103,16 +123,6 @@ class ValidatorTest {
     }
 
     @Test
-    @DisplayName("자동차의_이름이_5글자_이하인_경우")
-    void validateCarNameLengthWhenLessThanFive() {
-        List<String> carNames = List.of("c", "ca", "car", "car1", "car12");
-
-        assertDoesNotThrow(() -> {
-            validator.validate(carNames);
-        });
-    }
-
-    @Test
     @DisplayName("자동차의_이름이_5글자_초과인_경우")
     void validateCarNameLengthWhenExceedFive() {
         List<String> carNames = List.of("car123", "car");
@@ -123,16 +133,6 @@ class ValidatorTest {
         });
 
         assertEquals(errorMessage, exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("영문자_한글_숫자_밑줄_조합인_자동차인_경우")
-    void validateCarNameWithWordCharacter() {
-        List<String> carNames = List.of("car", "c1234", "우아한카", "car_1", "포bi", "좋은_차");
-
-        assertDoesNotThrow(() -> {
-            validator.validate(carNames);
-        });
     }
 
     @Test
