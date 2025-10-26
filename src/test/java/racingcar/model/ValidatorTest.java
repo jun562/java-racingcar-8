@@ -22,7 +22,7 @@ class ValidatorTest {
     @DisplayName("입력된_자동차가_2대인 경우")
     void validateCarNumbersWhenTwo() {
         List<String> carNames = List.of("car", "wooni");
-        
+
         assertDoesNotThrow(() -> {
             validator.validate(carNames);
         });
@@ -87,6 +87,19 @@ class ValidatorTest {
 
         assertEquals(errorMessage, exception.getMessage());
 
+    }
+
+    @Test
+    @DisplayName("자동차의_이름이_빈_문자열인_경우")
+    void validateCarNamesWithEmpty() {
+        List<String> carNames = List.of("pobi", "", "wooni");
+        String errorMessage = "자동차의 이름은 비어있지 않아야 합니다.";
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            validator.validate(carNames);
+        });
+
+        assertEquals(errorMessage, exception.getMessage());
     }
 
 }
