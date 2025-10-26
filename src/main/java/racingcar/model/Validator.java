@@ -9,6 +9,8 @@ import static racingcar.constant.ErrorMessage.ERROR_INVALID_CAR_COUNT;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Validator {
     public Validator() {
@@ -20,20 +22,46 @@ public class Validator {
     private static final String CAR_NAME_REGEX = "^[a-zA-Z0-9_가-힣]+$";
 
     public void validate(List<String> carNames) {
-        Set<String> carNamesSet = new HashSet<>(carNames);
+        validateCarCount(carNames);
+        validateDuplicatedCarNames(carNames);
+        validateEmptyCarNames(carNames);
+        validateCarNameLength(carNames);
+        validateCarNameFormat(carNames);
+    }
+
+    private void validateCarCount(List<String> carNames) {
         if (carNames.size() < MIN_CAR_COUNT) {
             throw new IllegalArgumentException(ERROR_INVALID_CAR_COUNT);
         }
+    }
+
+    private void validateDuplicatedCarNames(List<String> carNames) {
+        Set<String> carNamesSet = new HashSet<>(carNames);
+
         if (carNamesSet.size() != carNames.size()) {
             throw new IllegalArgumentException(ERROR_CAR_NAME_DUPLICATED);
         }
+    }
+
+    private void validateEmptyCarNames(List<String> carNames) {
         if (carNames.contains("")) {
             throw new IllegalArgumentException(ERROR_CAR_NAME_WITH_EMPTY);
         }
-        if (carNames.stream().mapToInt(String::length).anyMatch(length -> length > 5)) {
+    }
+
+    private void validateCarNameLength(List<String> carNames) {
+        Stream<String> carNamesStream = carNames.stream();
+        IntStream carNamesLengthStream = carNamesStream.mapToInt(String::length);
+
+        if (carNamesLengthStream.anyMatch(length -> length > MAX_CAR_NAME_LENGTH)) {
             throw new IllegalArgumentException(ERROR_CAR_NAME_LENGTH);
         }
-        if (carNames.stream().anyMatch(carName -> !carName.matches(CAR_NAME_REGEX))) {
+    }
+
+    private void validateCarNameFormat(List<String> carNames) {
+        Stream<String> carNamesStream = carNames.stream();
+
+        if (carNamesStream.anyMatch(carName -> !carName.matches(CAR_NAME_REGEX))) {
             throw new IllegalArgumentException(ERROR_CAR_NAME_FORMAT);
         }
     }
