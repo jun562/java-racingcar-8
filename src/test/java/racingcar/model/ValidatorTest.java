@@ -102,4 +102,26 @@ class ValidatorTest {
         assertEquals(errorMessage, exception.getMessage());
     }
 
+    @Test
+    @DisplayName("자동차의_이름이_5글자_이하인_경우")
+    void validateCarNameLengthWhenLessThanFive() {
+        List<String> carNames = List.of("c", "ca", "car", "car1", "car12");
+
+        assertDoesNotThrow(() -> {
+            validator.validate(carNames);
+        });
+    }
+
+    @Test
+    @DisplayName("자동차의_이름이_5글자_초과인_경우")
+    void validateCarNameLengthWhenExceedFive() {
+        List<String> carNames = List.of("car123", "car");
+        String errorMessage = "자동차의 이름은 5글자 이하여야 합니다.";
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            validator.validate(carNames);
+        });
+
+        assertEquals(errorMessage, exception.getMessage());
+    }
 }
