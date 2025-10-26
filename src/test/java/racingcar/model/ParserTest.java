@@ -1,6 +1,6 @@
 package racingcar.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,14 @@ class ParserTest {
     void parseCarNames() {
         String input = "car,woni,jun,woowa";
         List<String> result = parser.parse(input);
-        assertEquals(result, List.of("car","woni","jun","woowa"));
+        assertEquals(result, List.of("car", "woni", "jun", "woowa"));
     }
 
+    @Test
+    @DisplayName("자동차_이름_끝에_공백_존재하는_경우")
+    void parseCarNamesWithWhiteSpace() {
+        String input = " car, woni ,jun ,woowa";
+        List<String> result = parser.parse(input);
+        assertEquals(result, List.of("car", "woni", "jun", "woowa"));
+    }
 }
