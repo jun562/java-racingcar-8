@@ -3,6 +3,11 @@ package racingcar.model;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static racingcar.constant.ErrorMessage.ERROR_CAR_NAME_DUPLICATED;
+import static racingcar.constant.ErrorMessage.ERROR_CAR_NAME_FORMAT;
+import static racingcar.constant.ErrorMessage.ERROR_CAR_NAME_LENGTH;
+import static racingcar.constant.ErrorMessage.ERROR_CAR_NAME_WITH_EMPTY;
+import static racingcar.constant.ErrorMessage.ERROR_INVALID_CAR_COUNT;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -73,26 +78,24 @@ class ValidatorTest {
     @DisplayName("입력된_자동차가_1대인_경우")
     void validateCarNumbersWhenOne() {
         List<String> carNames = List.of("car");
-        String errorMessage = "경주할 자동차는 2대 이상이어야 합니다.";
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             validator.validate(carNames);
         });
 
-        assertEquals(errorMessage, exception.getMessage());
+        assertEquals(ERROR_INVALID_CAR_COUNT, exception.getMessage());
     }
 
     @Test
     @DisplayName("입력된_자동차가_없는_경우")
     void validateCarNumbersWhenZero() {
         List<String> carNames = List.of("");
-        String errorMessage = "경주할 자동차는 2대 이상이어야 합니다.";
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             validator.validate(carNames);
         });
 
-        assertEquals(errorMessage, exception.getMessage());
+        assertEquals(ERROR_INVALID_CAR_COUNT, exception.getMessage());
     }
 
     @Test
@@ -105,7 +108,7 @@ class ValidatorTest {
             validator.validate(carNames);
         });
 
-        assertEquals(errorMessage, exception.getMessage());
+        assertEquals(ERROR_CAR_NAME_DUPLICATED, exception.getMessage());
 
     }
 
@@ -113,39 +116,36 @@ class ValidatorTest {
     @DisplayName("자동차의_이름이_빈_문자열인_경우")
     void validateCarNamesWithEmpty() {
         List<String> carNames = List.of("pobi", "", "wooni");
-        String errorMessage = "자동차의 이름은 비어있지 않아야 합니다.";
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             validator.validate(carNames);
         });
 
-        assertEquals(errorMessage, exception.getMessage());
+        assertEquals(ERROR_CAR_NAME_WITH_EMPTY, exception.getMessage());
     }
 
     @Test
     @DisplayName("자동차의_이름이_5글자_초과인_경우")
     void validateCarNameLengthWhenExceedFive() {
         List<String> carNames = List.of("car123", "car");
-        String errorMessage = "자동차의 이름은 5글자 이하여야 합니다.";
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             validator.validate(carNames);
         });
 
-        assertEquals(errorMessage, exception.getMessage());
+        assertEquals(ERROR_CAR_NAME_LENGTH, exception.getMessage());
     }
 
     @Test
     @DisplayName("자동차_이름에_공백이_포함된_경우")
     void validateCarNameWithWhiteSpace() {
         List<String> carNames = List.of("car 1", "car 2", "car 3");
-        String errorMessage = "자동차의 이름은 영문자, 한글, 숫자, 밑줄(_)의 조합이어야 합니다.";
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             validator.validate(carNames);
         });
 
-        assertEquals(errorMessage, exception.getMessage());
+        assertEquals(ERROR_CAR_NAME_FORMAT, exception.getMessage());
     }
 
     //    비단어 문자 : [^a-zA-Z0-9_가-힣]
@@ -153,12 +153,11 @@ class ValidatorTest {
     @DisplayName("자동차_이름에_비단어_문자가_포함된_경우")
     void validateCarNameWithNonWordCharacter() {
         List<String> carNames = List.of("c.a.r", "c+a*r", "c!a&r");
-        String errorMessage = "자동차의 이름은 영문자, 한글, 숫자, 밑줄(_)의 조합이어야 합니다.";
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             validator.validate(carNames);
         });
 
-        assertEquals(errorMessage, exception.getMessage());
+        assertEquals(ERROR_CAR_NAME_FORMAT, exception.getMessage());
     }
 }
