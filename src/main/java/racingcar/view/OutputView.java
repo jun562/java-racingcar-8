@@ -3,8 +3,8 @@ package racingcar.view;
 import java.util.List;
 import racingcar.model.Car;
 
-public class Output {
-    private Output() {
+public class OutputView {
+    private OutputView() {
 
     }
 
@@ -15,7 +15,7 @@ public class Output {
     public static void printRoundResult(List<Car> cars) {
         for (Car car : cars) {
             String distanceDash = "-".repeat(car.getCurrentDistance());
-            
+
             System.out.printf("%s : %s\n", car.getCarName(), distanceDash);
         }
         System.out.println();

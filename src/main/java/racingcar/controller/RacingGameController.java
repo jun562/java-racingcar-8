@@ -2,7 +2,7 @@ package racingcar.controller;
 
 import java.util.List;
 import racingcar.model.RacingGame;
-import racingcar.view.Output;
+import racingcar.view.OutputView;
 
 public class RacingGameController {
     public RacingGameController() {
@@ -16,7 +16,7 @@ public class RacingGameController {
     }
 
     private void printStartMessage() {
-        Output.printResultHeader();
+        OutputView.printResultHeader();
     }
 
     private void executeGameRounds(RacingGame racingGame) {
@@ -24,12 +24,12 @@ public class RacingGameController {
 
         for (int count = 0; count < attemptCount; count++) {
             racingGame.playOneTime();
-            Output.printRoundResult(racingGame.getCars());
+            OutputView.printRoundResult(racingGame.getCars());
         }
     }
 
     private void printFinalResults(RacingGame racingGame) {
         List<String> winners = racingGame.findWinners();
-        Output.printWinners(winners);
+        OutputView.printWinners(winners);
     }
 }

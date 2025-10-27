@@ -5,7 +5,7 @@ import racingcar.model.AttemptCountValidator;
 import racingcar.model.CarNameValidator;
 import racingcar.model.Parser;
 import racingcar.model.RacingGame;
-import racingcar.view.Input;
+import racingcar.view.InputView;
 
 public class InputController {
     private final Parser parser;
@@ -24,14 +24,14 @@ public class InputController {
     }
 
     private List<String> getCarNamesList() {
-        String carNamesInput = Input.readCarNames();
+        String carNamesInput = InputView.readCarNames();
         List<String> carNames = parser.parseCarNames(carNamesInput);
         carNameValidator.validate(carNames);
         return carNames;
     }
 
     private int getAttemptCount() {
-        String attemptCountInput = Input.readAttemptCount();
+        String attemptCountInput = InputView.readAttemptCount();
         int attemptCount = parser.parseAttemptCount(attemptCountInput);
         attemptCountValidator.validate(attemptCount);
         return attemptCount;
