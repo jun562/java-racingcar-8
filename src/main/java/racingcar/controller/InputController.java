@@ -12,10 +12,11 @@ public class InputController {
     private final CarNameValidator carNameValidator;
     private final AttemptCountValidator attemptCountValidator;
 
-    public InputController() {
-        this.parser = new Parser();
-        this.carNameValidator = new CarNameValidator();
-        this.attemptCountValidator = new AttemptCountValidator();
+    public InputController(Parser parser, CarNameValidator carNameValidator,
+                           AttemptCountValidator attemptCountValidator) {
+        this.parser = parser;
+        this.carNameValidator = carNameValidator;
+        this.attemptCountValidator = attemptCountValidator;
     }
 
     public RacingGame getRacingGame() {
