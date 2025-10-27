@@ -17,7 +17,7 @@ public class Parser {
 
     public int parseAttemptCount(String input) {
         try {
-            return Integer.parseInt(input.trim());
+            return Integer.parseInt(trimAttemptCount(input));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ERROR_INVALID_ATTEMPT_COUNT);
         }
@@ -33,5 +33,8 @@ public class Parser {
         return trimmedCarNamesStream.collect(Collectors.toList());
     }
 
+    private String trimAttemptCount(String input) {
+        return input.trim();
+    }
 
 }
