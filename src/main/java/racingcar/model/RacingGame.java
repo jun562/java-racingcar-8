@@ -17,6 +17,12 @@ public class RacingGame {
         this.attemptCount = attemptCount;
     }
 
+    public void playOneTime() {
+        for (Car car : this.cars) {
+            car.move(createRandomNumber());
+        }
+    }
+
     public int createRandomNumber() {
         return Randoms.pickNumberInRange(START_RANDOM_NUMBER, END_RANDOM_NUMBER);
     }
