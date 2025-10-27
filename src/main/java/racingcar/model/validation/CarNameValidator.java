@@ -1,4 +1,4 @@
-package racingcar.model;
+package racingcar.model.validation;
 
 import static racingcar.constant.ErrorMessage.ERROR_CAR_NAME_DUPLICATED;
 import static racingcar.constant.ErrorMessage.ERROR_CAR_NAME_FORMAT;
@@ -21,7 +21,7 @@ public class CarNameValidator {
     public CarNameValidator() {
 
     }
-    
+
     public void validate(List<String> carNames) {
         validateCount(carNames);
         validateDuplicated(carNames);

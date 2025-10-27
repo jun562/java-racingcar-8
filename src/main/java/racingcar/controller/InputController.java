@@ -1,10 +1,10 @@
 package racingcar.controller;
 
 import java.util.List;
-import racingcar.model.AttemptCountValidator;
-import racingcar.model.CarNameValidator;
 import racingcar.model.Parser;
 import racingcar.model.RacingGame;
+import racingcar.model.validation.AttemptCountValidator;
+import racingcar.model.validation.CarNameValidator;
 import racingcar.view.InputView;
 
 public class InputController {

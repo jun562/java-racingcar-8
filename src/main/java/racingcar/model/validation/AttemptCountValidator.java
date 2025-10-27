@@ -1,4 +1,4 @@
-package racingcar.model;
+package racingcar.model.validation;
 
 import static racingcar.constant.ErrorMessage.ERROR_INVALID_ATTEMPT_COUNT;
 

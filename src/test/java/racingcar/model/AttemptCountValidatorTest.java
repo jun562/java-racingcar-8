@@ -8,6 +8,7 @@ import static racingcar.constant.ErrorMessage.ERROR_INVALID_ATTEMPT_COUNT;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import racingcar.model.validation.AttemptCountValidator;
 
 class AttemptCountValidatorTest {
     private AttemptCountValidator attemptCountValidator;

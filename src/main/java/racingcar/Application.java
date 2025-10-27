@@ -2,10 +2,10 @@ package racingcar;
 
 import racingcar.controller.InputController;
 import racingcar.controller.RacingGameController;
-import racingcar.model.AttemptCountValidator;
-import racingcar.model.CarNameValidator;
 import racingcar.model.Parser;
 import racingcar.model.RacingGame;
+import racingcar.model.validation.AttemptCountValidator;
+import racingcar.model.validation.CarNameValidator;
 
 public class Application {
     public static void main(String[] args) {
