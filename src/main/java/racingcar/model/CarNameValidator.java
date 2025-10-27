@@ -19,6 +19,7 @@ public class CarNameValidator {
 
     private static final int MIN_CAR_COUNT = 2;
     private static final int MAX_CAR_NAME_LENGTH = 5;
+    private static final String EMPTY_STRING = "";
     private static final String CAR_NAME_REGEX = "^[a-zA-Z0-9_가-힣]+$";
 
     public void validate(List<String> carNames) {
@@ -44,7 +45,7 @@ public class CarNameValidator {
     }
 
     private void validateEmpty(List<String> carNames) {
-        if (carNames.contains("")) {
+        if (carNames.contains(EMPTY_STRING)) {
             throw new IllegalArgumentException(ERROR_CAR_NAME_WITH_EMPTY);
         }
     }

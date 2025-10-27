@@ -11,6 +11,8 @@ public class Parser {
 
     }
 
+    private static final String CAR_NAME_DELIMITER = ",";
+
     public List<String> parseCarNames(String input) {
         return trimCarNames(splitCarNames(input));
     }
@@ -24,7 +26,7 @@ public class Parser {
     }
 
     private List<String> splitCarNames(String input) {
-        return List.of(input.split(","));
+        return List.of(input.split(CAR_NAME_DELIMITER));
     }
 
     private List<String> trimCarNames(List<String> carNames) {
