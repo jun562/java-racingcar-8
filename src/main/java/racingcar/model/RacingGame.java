@@ -23,6 +23,12 @@ public class RacingGame {
         }
     }
 
+    public List<String> findWinners() {
+        int maxDistance = cars.stream().mapToInt(Car::getCurrentDistance).max().orElse(0);
+        return cars.stream().filter(car -> car.getCurrentDistance() == maxDistance).map(Car::getCarName)
+                .collect(Collectors.toList());
+    }
+
     public List<Car> getCars() {
         return this.cars;
     }
