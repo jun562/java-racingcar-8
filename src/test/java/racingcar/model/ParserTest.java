@@ -1,11 +1,15 @@
 package racingcar.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static racingcar.constant.ErrorMessage.ERROR_INVALID_ATTEMPT_COUNT;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class ParserTest {
     private Parser parser;
@@ -61,5 +65,44 @@ class ParserTest {
         String input = "";
         List<String> result = parser.parseCarNames(input);
         assertEquals(result, List.of(""));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "5, 5",
+            "0, 0",
+            "-3, -3"
+    })
+    @DisplayName("시도할_횟수가_정수인_경우")
+    void parseAttemptCountWhenInteger(String input, int expected) {
+        int result = parser.parseAttemptCount(input);
+
+        assertEquals(result, expected);
+    }
+
+    @Test
+    @DisplayName("시도할_횟수가_공백을_포함한_정수인_경우")
+    void parseAttemptCountWhenIntegerWithWhiteSpace() {
+        String input = "5 ";
+
+        int result = parser.parseAttemptCount(input);
+
+        assertEquals(result, 5);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "/",
+            "1.1",
+            "",
+            "-1.1"
+    })
+    @DisplayName("시도할_횟수가_정수가_아닌_경우")
+    void parseAttemptCountWhenNotInteger(String input) {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            parser.parseAttemptCount(input);
+        });
+
+        assertEquals(ERROR_INVALID_ATTEMPT_COUNT, exception.getMessage());
     }
 }
