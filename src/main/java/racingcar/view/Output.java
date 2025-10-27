@@ -24,4 +24,9 @@ public class Output {
         System.out.println();
     }
 
+    public static void printWinners(List<String> winners) {
+        String winnerNames = String.join(", ", winners);
+
+        System.out.printf("최종 우승자 : %s\n", winnerNames);
+    }
 }
