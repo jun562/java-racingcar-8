@@ -10,10 +10,10 @@ public class Car {
     }
 
     public String getCarName() {
-        return name;
+        return this.name;
     }
 
     public int getCurrentDistance() {
-        return distance;
+        return this.distance;
     }
 }
