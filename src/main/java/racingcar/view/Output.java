@@ -12,21 +12,17 @@ public class Output {
         System.out.println("\n실행 결과");
     }
 
-    public static void printOneTime(List<Car> cars) {
+    public static void printRoundResult(List<Car> cars) {
         for (Car car : cars) {
-            String name = car.getCarName();
-            int distance = car.getCurrentDistance();
-
-            String distanceDash = "-".repeat(distance);
-
-            System.out.printf("%s : %s\n", name, distanceDash);
+            String distanceDash = "-".repeat(car.getCurrentDistance());
+            
+            System.out.printf("%s : %s\n", car.getCarName(), distanceDash);
         }
         System.out.println();
     }
 
     public static void printWinners(List<String> winners) {
         String winnerNames = String.join(", ", winners);
-
         System.out.printf("최종 우승자 : %s\n", winnerNames);
     }
 }
