@@ -9,7 +9,7 @@ public class Parser {
 
     }
 
-    public List<String> parse(String input) {
+    public List<String> parseCarNames(String input) {
         return trimCarNames(splitCarNames(input));
     }
 
@@ -22,4 +22,6 @@ public class Parser {
         Stream<String> trimmedCarNamesStream = carNamesStream.map(String::trim);
         return trimmedCarNamesStream.collect(Collectors.toList());
     }
+
+
 }
