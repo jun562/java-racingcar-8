@@ -19,14 +19,20 @@ public class InputController {
     }
 
     public RacingGame getRacingGame() {
+        return new RacingGame(getCarNamesList(), getAttemptCount());
+    }
+
+    private List<String> getCarNamesList() {
         String carNamesInput = Input.readCarNames();
         List<String> carNames = parser.parseCarNames(carNamesInput);
         carNameValidator.validate(carNames);
+        return carNames;
+    }
 
+    private int getAttemptCount() {
         String attemptCountInput = Input.readAttemptCount();
         int attemptCount = parser.parseAttemptCount(attemptCountInput);
         attemptCountValidator.validate(attemptCount);
-
-        return new RacingGame(carNames, attemptCount);
+        return attemptCount;
     }
 }
