@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Parser {
+    private static final String CAR_NAME_DELIMITER = ",";
+
     public Parser() {
 
     }
-
-    private static final String CAR_NAME_DELIMITER = ",";
 
     public List<String> parseCarNames(String input) {
         return trimCarNames(splitCarNames(input));

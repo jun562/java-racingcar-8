@@ -13,15 +13,15 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class CarNameValidator {
-    public CarNameValidator() {
-
-    }
-
     private static final int MIN_CAR_COUNT = 2;
     private static final int MAX_CAR_NAME_LENGTH = 5;
     private static final String EMPTY_STRING = "";
     private static final String CAR_NAME_REGEX = "^[a-zA-Z0-9_가-힣]+$";
 
+    public CarNameValidator() {
+
+    }
+    
     public void validate(List<String> carNames) {
         validateCount(carNames);
         validateDuplicated(carNames);
