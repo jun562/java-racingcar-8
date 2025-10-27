@@ -3,6 +3,7 @@ package racingcar.model;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class RacingGame {
@@ -24,9 +25,10 @@ public class RacingGame {
     }
 
     public List<String> findWinners() {
-        int maxDistance = cars.stream().mapToInt(Car::getCurrentDistance).max().orElse(0);
-        return cars.stream().filter(car -> car.getCurrentDistance() == maxDistance).map(Car::getCarName)
-                .collect(Collectors.toList());
+        Stream<Car> carsStream = this.cars.stream();
+        Stream<Car> filteredCarsStream = carsStream.filter((car -> car.getCurrentDistance() == getMaxDistance()));
+        Stream<String> filteredCarNames = filteredCarsStream.map(Car::getCarName);
+        return filteredCarNames.collect(Collectors.toList());
     }
 
     public List<Car> getCars() {
@@ -45,5 +47,11 @@ public class RacingGame {
 
     private int createRandomNumber() {
         return Randoms.pickNumberInRange(START_RANDOM_NUMBER, END_RANDOM_NUMBER);
+    }
+
+    private int getMaxDistance() {
+        Stream<Car> carsStream = this.cars.stream();
+        IntStream carsDistance = carsStream.mapToInt(Car::getCurrentDistance);
+        return carsDistance.max().orElse(0);
     }
 }
