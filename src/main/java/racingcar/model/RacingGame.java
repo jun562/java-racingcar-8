@@ -23,10 +23,6 @@ public class RacingGame {
         }
     }
 
-    public int createRandomNumber() {
-        return Randoms.pickNumberInRange(START_RANDOM_NUMBER, END_RANDOM_NUMBER);
-    }
-
     public List<Car> getCars() {
         return this.cars;
     }
@@ -39,5 +35,9 @@ public class RacingGame {
         Stream<String> carNamesStream = carNames.stream();
         Stream<Car> carsStream = carNamesStream.map(Car::new);
         return carsStream.collect(Collectors.toList());
+    }
+
+    private int createRandomNumber() {
+        return Randoms.pickNumberInRange(START_RANDOM_NUMBER, END_RANDOM_NUMBER);
     }
 }
